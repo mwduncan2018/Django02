@@ -1,0 +1,5 @@
+*.project
+*.pydevproject
+*db.sqlite3
+*manage.py
+*temp_file.py
