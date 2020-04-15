@@ -1,0 +1,14 @@
+<h1>Polls App</h1>
+<h2>Question List Page</h2>
+
+<p>The view model is a list of question_text</p>
+
+{% if question_list %}
+	<ul>
+	{% for question in question_list %}
+		<li>{{ question.question_text }}</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>There are no questions</p>
+{% endif %}

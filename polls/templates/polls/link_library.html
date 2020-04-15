@@ -1,0 +1,8 @@
+<h1>Polls App</h1>
+<h2>Link Library Page</h2>
+
+<ul>
+	<li><a href="{% url 'polls:detail' 1 %}">Detail page with question_id equal to 1</li>
+	<li><a href="{% url 'polls:more_detail' 1 'Hello' %}">More Detail page with question_id equal to 1 and extra word equal to Hello</li>
+	<li><a href="{% url 'polls:deliberate_404' %}">Deliberate 404 page</li>
+</ul>
