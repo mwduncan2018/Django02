@@ -1,0 +1,16 @@
+<h1>Polls App</h1>
+<h2>Show All Choices Page</h2>
+<br />
+
+<h4>Choices:</h4>
+
+{% if choices %}
+	{% for choice in choices %}
+		<p>{{ choice.choice_text }}&nbsp;=&nbsp;{{ choice.votes }} votes</p>
+	{% endfor %}
+{% else %}
+	<p>There are no choices</p>
+{% endif %}
+<br />
+
+<h4><a href="{% url 'polls:minimal_form' 1 %}">Minimal Form Page</a></h4>

@@ -1,9 +1,10 @@
-from django.http import HttpResponse, Http404
-from django.template import loader
-from django.shortcuts import render, get_object_or_404
-
-from .models import Question
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.http.request import HttpRequest
+from django.shortcuts import render, get_object_or_404
+from django.template import loader
+from django.urls import reverse
+
+from .models import Question, Choice
 
 
 def index(request):
@@ -55,4 +56,33 @@ def raise_404_if_question_does_not_exist(request, question_id):
 
 def link_library(request):
     return render(request, 'polls/link_library.html')
+
+
+def minimal_form(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/minimal_form.html', {
+        'question': question
+    })
+    
+    
+def v2(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        return render(request, 'polls/minimal_form.html', {
+            'question': question,
+            'error_message': 'Select a valid choice'
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        return HttpResponseRedirect(reverse('polls:show_all_choices'))
+    
+
+def show_all_choices(request):
+    choices = Choice.objects.all()
+    return render(request, 'polls/show_all_choices.html', {
+        'choices': choices
+    })
     
